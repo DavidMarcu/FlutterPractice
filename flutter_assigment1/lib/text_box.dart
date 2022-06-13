@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './textField.dart';
+
 class HelloText extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HelloTextState();
@@ -8,12 +10,6 @@ class HelloText extends StatefulWidget {
 class _HelloTextState extends State<HelloText> {
   String _textDisplayed = "Initial text";
   final TextEditingController _editingController = TextEditingController();
-
-  void _setText(String text) {
-    setState(() {
-      _textDisplayed = text;
-    });
-  }
 
   void _setTextViaButton() {
     setState(() {
@@ -28,6 +24,7 @@ class _HelloTextState extends State<HelloText> {
         title: const Text("Text Box"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Text(
             _textDisplayed,
@@ -37,23 +34,7 @@ class _HelloTextState extends State<HelloText> {
             ),
             textAlign: TextAlign.center,
           ),
-          TextField(
-            onSubmitted: _setText,
-            controller: _editingController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(width: 2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
-          OutlinedButton(
-            onPressed: _setTextViaButton,
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.black87),
-            ),
-            child: const Text("Change Text"),
-          )
+          TextFieldWithButton(_editingController, _setTextViaButton),
         ],
       ),
     );
